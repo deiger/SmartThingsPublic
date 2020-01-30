@@ -107,6 +107,12 @@ def updated(){
     reload();
 }
 
+def initialize() {
+    unschedule(updateStatus)
+    runEvery1Minute(updateStatus)
+    sendEvent(name: "checkInterval", value: 120, data: [protocol: "lan", hubHardwareId: device.hub.hardwareID], displayed: false)
+}
+
 def reload(){
     state.module = null;
     state.gpio = null;
@@ -114,7 +120,7 @@ def reload(){
     sendCommand("module", null, getModuleCompleted);
     sendCommand("gpio", null, getGpioCompleted);
 
-    refresh();
+    initialize();
 }
 
 def getModuleCompleted(physicalgraph.device.HubResponse response){
