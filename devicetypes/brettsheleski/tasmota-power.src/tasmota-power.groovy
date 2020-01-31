@@ -1,8 +1,7 @@
 metadata {
 	definition(name: "Tasmota-Power", namespace: "BrettSheleski", author: "Brett Sheleski", ocfDeviceType: "oic.d.smartplug") {
+		capability "Momentary"
 		capability "Switch"
-        	capability "Energy Meter"
-        	capability "Power Meter"
 	}
 
 	// UI tile definitions
@@ -14,14 +13,6 @@ metadata {
 			}
 		}
 
-		valueTile("power", "device.power", decoration: "flat", width: 2, height: 2) {
-			state "default", label:'${currentValue} W'
-		}
-
-		valueTile("energy", "device.energy", decoration: "flat", width: 2, height: 2) {
-			state "default", label:'${currentValue} kWh'
-		}
-
 		valueTile("powerChannel", "powerChannel", width: 6, height: 1) {
 			state "powerChannel", label: 'Channel ${currentValue}', backgroundColor: "#ffffff"
 		}
@@ -31,7 +22,7 @@ metadata {
 		}
 
 		main "switch"
-		details(["switch", "power", "energy", "powerChannel", "gpio"])
+		details(["switch", "powerChannel", "gpio"])
 	}
 
 	preferences {
@@ -108,12 +99,6 @@ def updateStatus(status){
 	def on = (powerMask & status.Status.Power);
 
 	setSwitchState(on);
- 
- 	def energy = status?.StatusSNS?.ENERGY;
-	if (energy) {
-		sendEvent(name: "power", value: energy.get("Power", 0), unit: "W");
-		sendEvent(name: "energy", value: energy.get("Total", 0.0), unit: "kWh");
-	}
 }
 
 def setSwitchState(on){

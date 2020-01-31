@@ -6,7 +6,6 @@ It is used by the following Tasmota-compatible devices:
  - Sonoff RF
  - Sonoff SV
  - Sonoff TH
- - Sonoff POW
  - Sonoff S20 Socket
  - Sonoff Slampher
  - Sonoff Touch

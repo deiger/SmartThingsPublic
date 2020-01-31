@@ -211,7 +211,6 @@ def getModuleDevices(moduleId){
         case 2: // Sonoff RF
         case 3: // Sonoff SV
         case 4: // Sonoff TH
-        case 6: // Sonoff Pow
         case 8: // S20 Socket
         case 9: // Slampher
         case 10: // Sonoff Touch
@@ -265,8 +264,13 @@ def getModuleDevices(moduleId){
             devices[parentId + '-Fan'] = [namespace : "BrettSheleski", type: "Tasmota-Fan", label : "${thisLabel} Fan Speed", options : []]
             break;
 	    
+        case 6: // Sonoff Pow
+        case 24: // Huafan SS
+        case 43: // Sonoff Pow 2
 	case 45: // Blitzwolf SHP2
-            devices[parentId + '-Power'] = [namespace : "BrettSheleski", type: "Tasmota-Power", label : "${thisLabel} Switch", options : [powerChannel : 1]];
+	case 47: // Shelly 2
+	case 55: // Gosung SP1
+            devices[parentId + '-Energy'] = [namespace : "BrettSheleski", type: "Tasmota-Energy", label : "${thisLabel} Switch", options : [powerChannel : 1]];
             break;
 
         case 14: // Motor C/AC
@@ -274,7 +278,6 @@ def getModuleDevices(moduleId){
         case 16: // EXS Relay
         case 17: // WiOn
         case 20: // H801
-        case 24: // Huafan SS
         case 27: // AiLight
         case 31: // Supla Espablo
         case 32: // Witty Cloud
